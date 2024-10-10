@@ -1,40 +1,47 @@
-import express from "express";
-import cookieParser from "cookie-parser";
-import cors from "cors";
-import dotenv from "dotenv";
-import connectDB from "./utils/db.js";
-import userRoute from "./routes/user.route.js";
-import companyRoute from "./routes/company.route.js";
-import jobRoute from "./routes/job.route.js";
-import applicationRoute from "./routes/application.route.js";
+import express from "express"; // Importing express framework for creating server
+import mongoose from "mongoose";
+import cookieParser from "cookie-parser"; // Middleware to parse cookies
+import cors from "cors"; // Middleware to enable CORS
+import dotenv from "dotenv"; // Module to load environment variables
+import connectDB from "./utils/db.js"; // Function to connect to the database
+import userRoute from "./routes/user.route.js"; // User-related routes
+import companyRoute from "./routes/company.route.js"; // Company-related routes
+import jobRoute from "./routes/job.route.js"; // Job-related routes
+import applicationRoute from "./routes/application.route.js"; // Application-related routes
+import chartRoutes from "./routes/chartData.route.js"; //Data Pie and Bargraph
+import events from "events";
+import recommendation from "./routes/recommendation.route.js";
 
-dotenv.config({});
+// Load environment variables from .env file
+dotenv.config();
 
-const app = express();
+const app = express(); // Create an Express application
 
-// middleware
-app.use(express.json());
-app.use(express.urlencoded({extended:true}));
-app.use(cookieParser());
+// Middleware configuration
+app.use(express.json()); // Middleware to parse JSON bodies
+app.use(express.urlencoded({ extended: true })); // Middleware to parse URL-encoded bodies
+app.use(cookieParser()); // Middleware to parse cookies
+
+// CORS configuration
 const corsOptions = {
-    origin:'http://localhost:5173',
-    credentials:true
-}
+  origin: "http://localhost:5173", // Allow requests from this origin
+  credentials: true, // Enable credentials (cookies, authorization headers, etc.)
+};
 
-app.use(cors(corsOptions));
+app.use(cors(corsOptions)); // Use CORS middleware with specified options
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3000; // Set the port from environment variable or default to 3000
 
+// API route definitions
+app.use("/api/v1/user", userRoute); // User-related API routes
+app.use("/api/v1/company", companyRoute); // Company-related API routes
+app.use("/api/v1/job", jobRoute); // Job-related API routes
+app.use("/api/v1/application", applicationRoute); // Application-related API routes
+app.use("/api/chart", chartRoutes); // Register the chart routes
+app.use("/api/v1/recommend", recommendation);
 
-// api's
-app.use("/api/v1/user", userRoute);
-app.use("/api/v1/company", companyRoute);
-app.use("/api/v1/job", jobRoute);
-app.use("/api/v1/application", applicationRoute);
-
-
-
-app.listen(PORT,()=>{
-    connectDB();
-    console.log(`Server running at port ${PORT}`);
-})
+// Start the server and connect to the database
+app.listen(PORT, () => {
+  connectDB(); // Connect to the database
+  console.log(`Server running at port ${PORT}`); // Log the running port
+});
