@@ -17,4 +17,7 @@ export const COMPANY_API_END_POINT =
   "https://jobhub-backend-three.vercel.app/api/v1/company";
 
 // General base API endpoint for other API calls
-export const BASE_API_END_POINT = "https://jobhub-backend-three.vercel.app";
+export const BASE_API_END_POINT =
+  window.location.hostname === "localhost"
+    ? "http://localhost:8000"  // Local development URL
+    : "https://jobhub-backend-three.vercel.app";  // Production URL
