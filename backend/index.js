@@ -24,8 +24,11 @@ app.use(cookieParser()); // Middleware to parse cookies
 
 // CORS configuration
 const corsOptions = {
-  origin: "http://localhost:5173", // Allow requests from this origin
-  credentials: true, // Enable credentials (cookies, authorization headers, etc.)
+  origin:
+    process.env.NODE_ENV === "production"
+      ? "https://jobhub-frontend-ten.vercel.app"
+      : "http://localhost:5173", // Local development
+  credentials: true,
 };
 
 app.use(cors(corsOptions)); // Use CORS middleware with specified options
