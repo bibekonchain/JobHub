@@ -33,11 +33,11 @@ const corsOptions = {
 
 app.use(cors(corsOptions)); // Use CORS middleware with specified options
 
-// Add Content Security Policy (CSP) middleware
+// Add Content Security Policy (CSP) middleware for backend (server)
 app.use((req, res, next) => {
   res.setHeader(
     "Content-Security-Policy",
-    "default-src 'self'; script-src 'self' https://vercel.live;"
+    "default-src 'self'; script-src 'self'; connect-src 'self';"
   );
   next();
 });
