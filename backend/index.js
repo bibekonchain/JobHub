@@ -33,6 +33,15 @@ const corsOptions = {
 
 app.use(cors(corsOptions)); // Use CORS middleware with specified options
 
+// Add Content Security Policy (CSP) middleware
+app.use((req, res, next) => {
+  res.setHeader(
+    "Content-Security-Policy",
+    "default-src 'self'; script-src 'self' https://vercel.live;"
+  );
+  next();
+});
+
 const PORT = process.env.PORT || 3000; // Set the port from environment variable or default to 3000
 
 // API route definitions
