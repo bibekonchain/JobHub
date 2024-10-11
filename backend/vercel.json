@@ -22,8 +22,5 @@
         }
       ]
     }
-  ],
-  "live": {
-    "enabled": false
-  }
+  ]
 }
