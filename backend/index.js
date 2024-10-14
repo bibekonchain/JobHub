@@ -31,7 +31,7 @@ const corsOptions = {
   credentials: true,
 };
 
-app.use(cors(corsOptions)); // Use CORS middleware with specified options
+app.use(cors()); // Use CORS middleware with specified options
 
 // Add Content Security Policy (CSP) middleware for backend (server)
 app.use((req, res, next) => {
@@ -51,6 +51,7 @@ app.use("/api/v1/job", jobRoute); // Job-related API routes
 app.use("/api/v1/application", applicationRoute); // Application-related API routes
 app.use("/api/chart", chartRoutes); // Register the chart routes
 app.use("/api/v1/recommend", recommendation);
+app.get("/", async (req, res) => res.json({ msg: "Server Working Properly" }));
 
 // Start the server and connect to the database
 app.listen(PORT, () => {
