@@ -21,7 +21,8 @@ const JobChart = () => {
     ],
   });
 
-  const [setLocationChartData] = useState({
+  // Corrected state declaration for location chart data
+  const [locationChartData, setLocationChartData] = useState({
     labels: [],
     datasets: [
       {

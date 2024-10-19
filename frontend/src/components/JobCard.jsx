@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 
 const JobCard = ({ job, isApplied, applyJobHandler, showApplyButton }) => {
   return (
-    <div className="max-w-7xl mx-auto my-10 job-card">
+    <div className="max-w-7xl mx-auto my-10 job-card border rounded-lg shadow-md p-6">
       {/* Job Title and Badges */}
       <div className="flex items-center justify-between">
         <div>
@@ -83,7 +83,7 @@ const JobCard = ({ job, isApplied, applyJobHandler, showApplyButton }) => {
           <h1 className="font-bold my-1">
             Relevance:{" "}
             <span className="pl-4 font-normal text-gray-800">
-              {(job.similarityScore * 100).toFixed(2)}%
+              {job.similarityScore.toFixed(2)}%
             </span>
           </h1>
         )}

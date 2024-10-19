@@ -19,6 +19,7 @@ const RecommendationList = ({ userId }) => {
     const loadRecommendations = async () => {
       try {
         const data = await fetchRecommendations(userId);
+        console.log("Fetched Recommendations:", data); // Log the data to check for similarityScore
         setRecommendations(data);
       } catch (error) {
         console.error("Failed to load recommendations:", error);
@@ -26,7 +27,7 @@ const RecommendationList = ({ userId }) => {
         setLoading(false);
       }
     };
-
+  
     loadRecommendations();
   }, [userId]);
 
