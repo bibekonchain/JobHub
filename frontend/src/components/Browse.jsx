@@ -34,10 +34,10 @@ const Browse = () => {
       {/* Conditionally render job results based on user authentication */}
       {user ? (
         <div className="max-w-7xl mx-auto my-10">
-          <div className="grid grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4"> {/* Responsive grid */}
             {allJobs.length > 0 ? (
               allJobs.map((job) => (
-                <Job key={job._id} job={job} /> // Render each job using the Job component
+                <Job key={job._id} job={{ ...job, position: String(job.position) }} /> // Convert position to string
               ))
             ) : (
               <h2 className="text-center text-xl mb-4">No jobs available.</h2> // Message if no jobs are found

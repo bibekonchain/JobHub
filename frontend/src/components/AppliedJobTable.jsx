@@ -1,72 +1,62 @@
-import React from "react"; // Import React
-import {
-  Table,
-  TableBody,
-  TableCaption,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "./ui/table"; // Import table components
-import { Badge } from "./ui/badge"; // Import Badge component for displaying job status
-import { useSelector } from "react-redux"; // Import useSelector for accessing Redux store
+import { Table, TableBody, TableCell, TableHeader, TableRow } from "./ui/table"; // Removed TableHead import since it is not used
+import { Badge } from "./ui/badge";
+import { useSelector } from "react-redux";
 
 const AppliedJobTable = () => {
-  // Retrieve all applied jobs from the Redux store
   const { allAppliedJobs } = useSelector((store) => store.job);
 
   return (
-    <div>
-      <Table>
-        <TableCaption>A list of your applied jobs</TableCaption>{" "}
-        {/* Table caption */}
+    <div className="p-6 bg-[#6A38C2] rounded-lg shadow-md">
+      {/* Text above the table */}
+
+      <div className="mb-4 text-lg font-semibold text-white text-center">
+        A list of your applied jobs
+      </div>
+      <Table className="min-w-full bg-white rounded-lg overflow-hidden">
         <TableHeader>
-          <TableRow>
-            {/* Table header cells */}
-            <TableHead>Date</TableHead>
-            <TableHead>Job Role</TableHead>
-            <TableHead>Company</TableHead>
-            <TableHead className="text-right">Status</TableHead>{" "}
-            {/* Right-aligned status header */}
+          <TableRow className="bg-gray-200 text-[#6A38C2]">
+            {/* Ensure TableHead is used inside TableRow */}
+            <TableCell className="p-4 font-bold">Date</TableCell>
+            <TableCell className="p-4 font-bold">Job Role</TableCell>
+            <TableCell className="p-4 font-bold">Company</TableCell>
+            <TableCell className="p-4 font-bold text-right">Status</TableCell>
           </TableRow>
         </TableHeader>
         <TableBody>
-          {allAppliedJobs.length <= 0 ? ( // Check if there are applied jobs
-            <span>You haven't applied for any jobs yet.</span> // Message for no jobs
+          {allAppliedJobs.length === 0 ? (
+            <TableRow>
+              <TableCell colSpan={4} className="text-center p-4 text-gray-500">
+                You haven't applied for any jobs yet.
+              </TableCell>
+            </TableRow>
           ) : (
-            allAppliedJobs.map(
-              (
-                appliedJob // Map through applied jobs
-              ) => (
-                <TableRow key={appliedJob._id}>
-                  {" "}
-                  {/* Unique key for each row */}
-                  <TableCell>
-                    {appliedJob?.createdAt?.split("T")[0]}
-                  </TableCell>{" "}
-                  {/* Display application date */}
-                  <TableCell>{appliedJob.job?.title}</TableCell>{" "}
-                  {/* Display job title */}
-                  <TableCell>{appliedJob.job?.company?.name}</TableCell>{" "}
-                  {/* Display company name */}
-                  <TableCell className="text-right">
-                    {/* Display job status with conditional styling */}
-                    <Badge
-                      className={`${
-                        appliedJob?.status === "rejected"
-                          ? "bg-red-400"
-                          : appliedJob.status === "pending"
-                          ? "bg-gray-400"
-                          : "bg-green-400"
-                      }`}
-                    >
-                      {appliedJob.status.toUpperCase()}{" "}
-                      {/* Show status in uppercase */}
-                    </Badge>
-                  </TableCell>
-                </TableRow>
-              )
-            )
+            allAppliedJobs.map((appliedJob) => (
+              <TableRow
+                key={appliedJob._id}
+                className="hover:bg-gray-100 transition-colors"
+              >
+                <TableCell className="p-4">
+                  {new Date(appliedJob.createdAt).toLocaleDateString()}
+                </TableCell>
+                <TableCell className="p-4">{appliedJob.job?.title}</TableCell>
+                <TableCell className="p-4">
+                  {appliedJob.job?.company?.name}
+                </TableCell>
+                <TableCell className="p-4 text-right">
+                  <Badge
+                    className={`${
+                      appliedJob.status === "rejected"
+                        ? "bg-red-700 text-white"
+                        : appliedJob.status === "pending"
+                        ? "bg-[#6A38C2] text-white"
+                        : "bg-green-700 text-white"
+                    } rounded-full px-3 py-1 text-xs font-semibold`}
+                  >
+                    {appliedJob.status.toUpperCase()}
+                  </Badge>
+                </TableCell>
+              </TableRow>
+            ))
           )}
         </TableBody>
       </Table>
@@ -74,4 +64,4 @@ const AppliedJobTable = () => {
   );
 };
 
-export default AppliedJobTable; // Export the AppliedJobTable component
+export default AppliedJobTable;

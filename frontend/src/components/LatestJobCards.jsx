@@ -1,6 +1,7 @@
 import React from "react"; // Import React
 import { Badge } from "./ui/badge"; // Import Badge component for displaying job details
 import { useNavigate } from "react-router-dom"; // Import useNavigate for navigation
+import PropTypes from 'prop-types';
 
 const LatestJobCards = ({ job }) => {
   // Functional component accepting a job prop
@@ -41,6 +42,21 @@ const LatestJobCards = ({ job }) => {
       </div>
     </div>
   );
+};
+
+// Prop validation for LatestJobCards component
+LatestJobCards.propTypes = {
+  job: PropTypes.shape({
+    _id: PropTypes.string.isRequired,
+    company: PropTypes.shape({
+      name: PropTypes.string.isRequired,
+    }).isRequired,
+    title: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
+    position: PropTypes.number.isRequired, // Adjust this if position can be null or optional
+    jobType: PropTypes.string.isRequired,
+    salary: PropTypes.number.isRequired, // Adjust this if salary can be null or optional
+  }).isRequired,
 };
 
 export default LatestJobCards; // Export the LatestJobCards component

@@ -19,7 +19,6 @@ const RecommendationList = ({ userId }) => {
     const loadRecommendations = async () => {
       try {
         const data = await fetchRecommendations(userId);
-        console.log("Fetched Recommendations:", data); // Log the data to check for similarityScore
         setRecommendations(data);
       } catch (error) {
         console.error("Failed to load recommendations:", error);
@@ -36,17 +35,13 @@ const RecommendationList = ({ userId }) => {
     const updatedAppliedJobs = [...appliedJobs, jobId];
     setAppliedJobs(updatedAppliedJobs);
     localStorage.setItem("appliedJobs", JSON.stringify(updatedAppliedJobs)); // Save applied jobs to localStorage
-    console.log(`Applied for job with ID: ${jobId}`);
   };
 
   if (loading) return <p>Loading recommendations...</p>;
 
   return (
     <div className="recommendations-list max-w-7xl mx-auto my-10">
-      {/* Title with drop shadow and nice color combination */}
       <h1 className="text-4xl font-bold text-center mb-8">
-        {" "}
-        {/* Header for the section */}
         <span className="text-[#6A38C2]">Recommended </span> Jobs
       </h1>
 
@@ -57,7 +52,6 @@ const RecommendationList = ({ userId }) => {
               key={job._id}
               className="transform transition-transform hover:scale-105 bg-white p-6 rounded-lg shadow-lg hover:shadow-2xl"
             >
-              {/* Individual JobCard */}
               <JobCard
                 job={job}
                 showApplyButton={true}

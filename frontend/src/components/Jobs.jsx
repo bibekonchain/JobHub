@@ -4,7 +4,7 @@ import FilterCard from "./FilterCard"; // Import FilterCard component for filter
 import Job from "./Job"; // Import Job component to display individual job details
 import { useSelector } from "react-redux"; // Import useSelector for accessing Redux store
 import { motion } from "framer-motion"; // Import motion for animation effects
-import RecommendationList from "./RecommendationList";
+import RecommendationList from "./RecommendationList"; // Import RecommendationList for job recommendations
 
 const Jobs = () => {
   // Select all jobs and the searched query from the Redux store
@@ -26,6 +26,7 @@ const Jobs = () => {
           job.location.toLowerCase().includes(searchedQuery.toLowerCase())
         );
       });
+      console.log("Filtered Jobs:", filteredJobs);
       setFilterJobs(filteredJobs); // Update state with filtered jobs
     } else {
       setFilterJobs(allJobs); // If no query, show all jobs
@@ -42,32 +43,20 @@ const Jobs = () => {
         <h1></h1> // Show a message if user is not logged in
       )}
       <h1 className="text-4xl font-bold text-center mb-8">
-        {" "}
-        {/* Header for the section */}
         <span className="text-[#6A38C2]">Other </span> Jobs
       </h1>
       <div className="max-w-7xl mx-auto mt-5">
-        {" "}
-        {/* Main container for jobs */}
         <div className="flex gap-5">
-          {" "}
-          {/* Flex container for filtering and job listings */}
           <div className="w-20%">
-            {" "}
-            {/* Filter section */}
             <FilterCard /> {/* Render FilterCard for filtering options */}
           </div>
           {filterJobs.length <= 0 ? (
             <h2 className="text-center text-xl mb-4">
-              Please log in to view all jobs.
+              No jobs match your search criteria. Please try again.
             </h2> // Message if no jobs match the filter
           ) : (
             <div className="flex-1 h-[88vh] overflow-y-auto pb-5">
-              {" "}
-              {/* Container for job listings */}
               <div className="grid grid-cols-3 gap-4">
-                {" "}
-                {/* Grid layout for jobs */}
                 {filterJobs.map((job) => (
                   <motion.div
                     initial={{ opacity: 0, x: 100 }} // Initial animation state

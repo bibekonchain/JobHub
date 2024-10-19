@@ -8,7 +8,7 @@ import userRoute from "./routes/user.route.js"; // User-related routes
 import companyRoute from "./routes/company.route.js"; // Company-related routes
 import jobRoute from "./routes/job.route.js"; // Job-related routes
 import applicationRoute from "./routes/application.route.js"; // Application-related routes
-import chartRoutes from "./routes/chartData.route.js"; //Data Pie and Bargraph
+import chartRoutes from "./routes/chartData.route.js"; // Data Pie and Bargraph
 import events from "events";
 import recommendation from "./routes/recommendation.route.js";
 
@@ -26,12 +26,12 @@ app.use(cookieParser()); // Middleware to parse cookies
 const corsOptions = {
   origin:
     process.env.NODE_ENV === "production"
-      ? "https://jobhub-frontend-ten.vercel.app"
+      ? "https://jobhub-frontend-ten.vercel.app" // Production front-end
       : "http://localhost:5173", // Local development
-  credentials: true,
+  credentials: true, // Allow credentials (cookies, headers)
 };
 
-app.use(cors()); // Use CORS middleware with specified options
+app.use(cors(corsOptions)); // Use CORS middleware with specified options
 
 // Add Content Security Policy (CSP) middleware for backend (server)
 app.use((req, res, next) => {

@@ -14,7 +14,7 @@ const useGetAllJobs = () => {
       try {
         // Fetch all jobs based on the searched query
         const res = await axios.get(
-          `${JOB_API_END_POINT}/get?keyword=${searchedQuery}`,
+          `${JOB_API_END_POINT}/get?keyword=${searchedQuery || ""}`, // Fetch all jobs if searchedQuery is empty
           { withCredentials: true }
         );
         if (res.data.success) {

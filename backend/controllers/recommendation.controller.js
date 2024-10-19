@@ -1,7 +1,6 @@
 import { Job } from "../models/job.model.js";
 import { User } from "../models/user.model.js";
 
-// Function to calculate content-based recommendation using cosine similarity
 // Function to clean and normalize skills
 function cleanSkills(skills) {
   return skills.map(skill =>
@@ -14,9 +13,6 @@ function cosineSimilarity(jobSkills, userSkills) {
   const normalizedJobSkills = cleanSkills(jobSkills);
   const normalizedUserSkills = cleanSkills(userSkills);
 
-  console.log("Job Skills:", normalizedJobSkills);
-  console.log("User Skills:", normalizedUserSkills);
-
   const matchCount = normalizedJobSkills.filter((skill) =>
     normalizedUserSkills.includes(skill)
   ).length;
@@ -25,11 +21,8 @@ function cosineSimilarity(jobSkills, userSkills) {
 
   const similarityScore = (matchCount / totalSkills) * 100;
 
-  console.log("Similarity Score:", similarityScore);
-  
   return similarityScore;
 }
-
 
 export const getRecommendations = async (req, res) => {
   try {
@@ -59,7 +52,6 @@ export const getRecommendations = async (req, res) => {
     const sortedRecommendations = recommendations
       .filter((job) => job.similarityScore > 0) // Only show relevant jobs
       .sort((a, b) => b.similarityScore - a.similarityScore); // Sort by similarityScore
-
 
     res.json(sortedRecommendations);
   } catch (error) {
