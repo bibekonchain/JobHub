@@ -18,17 +18,4 @@ router.get("/jobs-by-type", async (req, res) => {
   }
 });
 
-// Example: Fetch job count by location
-router.get("/jobs-by-location", async (req, res) => {
-  try {
-    const jobsByLocation = await Job.aggregate([
-      { $group: { _id: "$location", count: { $sum: 1 } } },
-    ]);
-    res.json(jobsByLocation);
-  } catch (err) {
-    console.error("Error fetching jobs by location:", err.message);
-    res.status(500).json({ error: "Internal Server Error" });
-  }
-});
-
 export default router;

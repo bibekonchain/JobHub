@@ -24,11 +24,23 @@ app.use(cookieParser()); // Middleware to parse cookies
 
 // CORS configuration
 const corsOptions = {
-  origin: "http://localhost:5173", // Allow requests from this origin
-  credentials: true, // Enable credentials (cookies, authorization headers, etc.)
+  origin:
+    process.env.NODE_ENV === "production"
+      ? "https://jobhub-frontend-ten.vercel.app"
+      : "http://localhost:5173", // Local development
+  credentials: true,
 };
 
-app.use(cors(corsOptions)); // Use CORS middleware with specified options
+app.use(cors()); // Use CORS middleware with specified options
+
+// Add Content Security Policy (CSP) middleware for backend (server)
+app.use((req, res, next) => {
+  res.setHeader(
+    "Content-Security-Policy",
+    "default-src 'self'; script-src 'self'; connect-src 'self';"
+  );
+  next();
+});
 
 const PORT = process.env.PORT || 3000; // Set the port from environment variable or default to 3000
 
@@ -39,6 +51,7 @@ app.use("/api/v1/job", jobRoute); // Job-related API routes
 app.use("/api/v1/application", applicationRoute); // Application-related API routes
 app.use("/api/chart", chartRoutes); // Register the chart routes
 app.use("/api/v1/recommend", recommendation);
+app.get("/", async (req, res) => res.json({ msg: "Server Working Properly" }));
 
 // Start the server and connect to the database
 app.listen(PORT, () => {
