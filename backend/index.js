@@ -11,9 +11,25 @@ import applicationRoute from "./routes/application.route.js"; // Application-rel
 import chartRoutes from "./routes/chartData.route.js"; // Data Pie and Bargraph
 import events from "events";
 import recommendation from "./routes/recommendation.route.js";
+import resumeRoutes from "./routes/resumeUpload.routes.js"; // Correctly named resume routes import
+import path from "path";
+import { fileURLToPath } from 'url'; // Helper to define __dirname
+import fs from "fs"; // Importing the fs module
+import resumeUploadRoutes from './routes/resumeUpload.routes.js';
+import extractDataRoutes from './routes/extractData.routes.js';
+
+// Define __dirname in ES module scope
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // Load environment variables from .env file
 dotenv.config();
+
+// Ensure the uploads/resumes directory exists
+const uploadDir = path.join(__dirname, "uploads", "resumes");
+if (!fs.existsSync(uploadDir)) {
+  fs.mkdirSync(uploadDir, { recursive: true }); // Create the directory if it doesn't exist
+}
 
 const app = express(); // Create an Express application
 
@@ -21,6 +37,9 @@ const app = express(); // Create an Express application
 app.use(express.json()); // Middleware to parse JSON bodies
 app.use(express.urlencoded({ extended: true })); // Middleware to parse URL-encoded bodies
 app.use(cookieParser()); // Middleware to parse cookies
+app.use("/uploads/resumes", express.static(uploadDir)); // Serve static files for uploaded resumes
+app.use('/api', resumeUploadRoutes);
+app.use('/api', extractDataRoutes);
 
 // CORS configuration
 const corsOptions = {
@@ -51,6 +70,9 @@ app.use("/api/v1/job", jobRoute); // Job-related API routes
 app.use("/api/v1/application", applicationRoute); // Application-related API routes
 app.use("/api/chart", chartRoutes); // Register the chart routes
 app.use("/api/v1/recommend", recommendation);
+app.use("/api", resumeRoutes); // Correctly use resume routes
+
+// Health check endpoint
 app.get("/", async (req, res) => res.json({ msg: "Server Working Properly" }));
 
 // Start the server and connect to the database
