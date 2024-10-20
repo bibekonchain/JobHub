@@ -98,14 +98,11 @@ const Profile = () => {
         </div>
       </div>
       <div className="max-w-4xl mx-auto bg-white rounded-2xl">
-       
         <h1 className="text-4xl font-bold text-center mb-8">
-        {" "}
-        {/* Header for the section */}
-        <span className="text-[#6A38C2]">Applied </span>Jobs
-      </h1>
-       
-       
+          {" "}
+          {/* Header for the section */}
+          <span className="text-[#6A38C2]">Applied </span>Jobs
+        </h1>
         {/* Header for applied jobs section */}
         <AppliedJobTable /> {/* Render the AppliedJobTable component */}
       </div>

@@ -14,6 +14,9 @@ import AdminJobs from "./components/admin/AdminJobs"; // Import AdminJobs compon
 import PostJob from "./components/admin/PostJob"; // Import PostJob component for admin
 import Applicants from "./components/admin/Applicants"; // Import Applicants component for admin
 import ProtectedRoute from "./components/admin/ProtectedRoute"; // Import ProtectedRoute component for route protection
+import ResumeUpload from "./components/ResumeUpload"; // Import ResumeUpload component
+
+
 
 // Define the application's router using createBrowserRouter
 const appRouter = createBrowserRouter([
@@ -44,6 +47,10 @@ const appRouter = createBrowserRouter([
   {
     path: "/profile", // Profile route
     element: <Profile />, // Component to render at profile route
+  },
+  {
+    path: "/upload-resume", // Resume upload route
+    element: <ResumeUpload />, // Component to render resume upload
   },
   // Admin routes start here
   {

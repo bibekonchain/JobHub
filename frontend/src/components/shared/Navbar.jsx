@@ -9,6 +9,7 @@ import axios from "axios"; // Import axios for API calls
 import { USER_API_END_POINT } from "@/utils/constant"; // Import API endpoint constant
 import { setUser } from "@/redux/authSlice"; // Import Redux action to set user
 import { toast } from "sonner"; // Import toast for notifications
+import ResumeUpload from "../ResumeUpload";
 
 const Navbar = () => {
   const { user } = useSelector((store) => store.auth); // Get user data from Redux store
@@ -145,6 +146,10 @@ const Navbar = () => {
                             <Link to="/profile">View Profile</Link>
                           </Button>{" "}
                           {/* View Profile link */}
+                          
+                          <Button variant="link">
+                            <Link to="/upload-resume">Upload Resume</Link>
+                          </Button>
                         </div>
                       )}
                     <div className="flex w-fit items-center gap-2 cursor-pointer">
