@@ -33,16 +33,16 @@ const ResumeUpload = () => {
     const formData = new FormData();
     formData.append("resume", resume); // Append file to form data
 
-    try { 
+    try {
       setIsUploading(true); // Start loading indicator
       const response = await axios.post(
-          "http://localhost:8000/api/upload/resume",
-          formData,
-          {
-              headers: {
-                  "Content-Type": "multipart/form-data",
-              },
-          }
+        "https://jobhub-backend-3t1f.onrender.com/api/upload/resume",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
       );
       setIsUploading(false); // Stop loading indicator
       setUploadStatus("Resume uploaded successfully!"); // Success message
@@ -50,7 +50,10 @@ const ResumeUpload = () => {
     } catch (error) {
       setIsUploading(false); // Stop loading indicator
       setUploadStatus("Failed to upload resume. Please try again."); // Error message
-      console.error("Upload Error:", error.response ? error.response.data : error.message); // Log error details
+      console.error(
+        "Upload Error:",
+        error.response ? error.response.data : error.message
+      ); // Log error details
     }
   };
 

@@ -44,7 +44,7 @@ const JobChart = () => {
     const fetchJobTypeData = async () => {
       try {
         const { data } = await axios.get(
-          "http://localhost:8000/api/chart/jobs-by-type"
+          "https://jobhub-backend-3t1f.onrender.com/api/chart/jobs-by-type"
         );
 
         if (data && data.length > 0) {
@@ -80,7 +80,7 @@ const JobChart = () => {
     const fetchJobLocationData = async () => {
       try {
         const { data } = await axios.get(
-          "http://localhost:8000/api/chart/jobs-by-location"
+          "https://jobhub-backend-3t1f.onrender.com/api/chart/jobs-by-location"
         );
 
         if (data && data.length > 0) {
